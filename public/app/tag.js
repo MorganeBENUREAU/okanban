@@ -194,6 +194,7 @@ const tagModule = {
 
         tagElm.setAttribute('data-tag-id', tag.id);
         tagElm.textContent = tag.name;
+        tagElm.classList.add('tagItem');
         tagElm.style.backgroundColor = tag.color;
         tagElm.style.marginRight = '5px';
 
