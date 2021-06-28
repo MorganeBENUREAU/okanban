@@ -26,7 +26,7 @@ const listModule = {
                 for (const card of list.cards) {
                     cardModule.makeCardInDOM(card);
                     for (const tag of card.tags) {
-                        tagModule.makeTagInDOM(tag);
+                        tagModule.makeTagInDOM(tag, card.id);
                     }
                 }
             }

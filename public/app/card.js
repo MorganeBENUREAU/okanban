@@ -1,4 +1,3 @@
-const app = require ('./app');
 const tagModule = require ('./tag');
 
 
@@ -73,6 +72,7 @@ const cardModule = {
 
 
         selectedList.querySelector('.panel-block').append(cardClone);
+
 
     },
 

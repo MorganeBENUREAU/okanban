@@ -112,6 +112,7 @@ const tagModule = {
 
     async showAssociateCardTagModal(event) {
 
+        console.log('je suis dans showtruc')
         const cardId = event.target;
         cardId.closest('[data-card-id]');
         cardId.getAttribute('data-card-id');
@@ -121,6 +122,7 @@ const tagModule = {
         modalElm.classList.add('is-active');
 
         try {
+            
             const response = await fetch(`${tagModule.base_url}/tags`);
 
             if (!response.ok) {
@@ -133,6 +135,7 @@ const tagModule = {
             tagListElm.setAttribute('data-card-id', cardId);
             tagListElm.textContent = '';
 
+            console.log('avant for')
             for (const tag of tags) {
                 const tagElm = document.createElement('span');
 
@@ -143,8 +146,10 @@ const tagModule = {
                 tagElm.style.backgroundColor = tag.color;
                 tagElm.style.marginRight = '5px';
 
-                tagElm.addEventListener('click', tagModule.handleAssociateTagToCard)
+                tagElm.addEventListener('click', tagModule.handleAssociateTagToCard);
+                console.log('coucou avant tag')
                 tagListElm.append(tagElm);
+                console.log('coucou apres tag')
             }
         } catch (e) {
             alert(e);
@@ -192,7 +197,7 @@ const tagModule = {
         tagElm.style.backgroundColor = tag.color;
         tagElm.style.marginRight = '5px';
 
-        document.querySelector(`[data-card-id="${cardId}"] .tags-list`).append()
+        document.querySelector(`[data-card-id="${cardId}"] .tags-list`).append(tagElm);
 
 
         // ptete j'en aurais besoin plus tard
