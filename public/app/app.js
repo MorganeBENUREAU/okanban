@@ -1,12 +1,12 @@
-// const cardModule = require ('./card');
-// const listModule = require ('./list');
-// const tagModule = require ('./tag');
+const cardModule = require ('./card');
+const listModule = require ('./list');
+const tagModule = require ('./tag');
 
 
 // on objet qui contient des fonctions
 const app = {
 
-  base_url: "http://localhost:3000",
+  base_url: "http://18.204.218.43:3000",
 
 
   // fonction d'initialisation, lancée au chargement de la page
@@ -150,4 +150,4 @@ const app = {
 // on accroche un écouteur d'évènement sur le document : quand le chargement est terminé, on lance app.init
 document.addEventListener('DOMContentLoaded', app.init );
 
-// module.exports = app;
+module.exports = app;

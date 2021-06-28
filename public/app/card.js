@@ -1,5 +1,5 @@
-// const app = require ('./app');
-// const tagModule = require ('./tag');
+const app = require ('./app');
+const tagModule = require ('./tag');
 
 
 
@@ -177,4 +177,4 @@ const cardModule = {
 
 };
 
-// module.exports = cardModule;
+module.exports = cardModule;

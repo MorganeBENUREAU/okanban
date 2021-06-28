@@ -4303,8 +4303,6 @@ module.exports = listModule;
 },{"./app":2,"./card":3,"./tag":5,"sortablejs":1}],5:[function(require,module,exports){
 
 
-
-
 const tagModule = {
 
     base_url: null,
