@@ -1,5 +1,3 @@
-
-
 const tagModule = {
 
     base_url: null,
@@ -9,8 +7,9 @@ const tagModule = {
     },
 
     showManageTagsModal() {
-        
+
         document.getElementById('addTagModal').classList.add('is-active');
+
     },
 
     handleAddTagForm: async (event) => {
@@ -39,80 +38,9 @@ const tagModule = {
 
     },
 
-    // showAddTagModal: (event) => {
 
-    //     const divModal = document.getElementById('addTagModal');
-    //     divModal.classList.add('is-active');
+    showAssociateCardTagModal: async (event) => {
 
-    //     divModal.querySelector('.is-success').addEventListener('click', tagModule.showFormAddTag)
-    // },
-
-
-
-    // showFormAddTag: (event) => {
-
-    //     const selectedCard = event.target.closest('.box');
-
-    //     const selectTag = event.target.closest('.tag');
-
-    //     const showForm = selectTag.querySelector('form');
-    //     showForm.classList.remove('is-hidden');
-
-    //     selectTag.querySelector('.title-tag').classList.add('is-hidden');
-
-    //     const inputHidden = showForm.querySelector('input[type="hidden"]');
-    //     inputHidden.value = selectedCard.dataset.cardId;
-    //     // console.log(selectedList.dataset.listId);
-    //     // console.log(showForm);
-
-    //     showForm.addEventListener('submit', (event) => {
-    //         app.handleEditTagForm(selectTag, event)
-    //     })
-
-    //     showForm.querySelector('.close').addEventListener('click', () => {
-    //         showForm.classList.add('is-hidden');
-    //         selectTag.querySelector('.title-tag').classList.remove('is-hidden');
-    //     })
-    // },
-
-    // handleEditTagForm: async (selectedTag, event) => {
-
-    //     const formData = new FormData(event.target);
-    //     // console.log(Object.fromEntries.formData);
-    //     const id = selectedTag.dataset.tagId;
-    //     // console.log(id);
-
-    //     try {
-
-    //         const response = await fetch(tagModule.base_url + `/${id}`, {
-    //             method: 'PATCH',
-    //             body: formData
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error(response.status);
-    //         }
-
-    //         const tag = await response.json();
-
-    //         // selectedList.querySelector(`[data-list-id = "${id}"]`);
-    //         // console.log(selectedList);
-
-    //         selectedTag.querySelector('.title-tag').textContent = tag.title;
-
-    //         selectedTag.style.backgroundColor = tag.color;
-
-
-
-    //     } catch (error) {
-    //         alert(error);
-    //     };
-
-    // },
-
-    async showAssociateCardTagModal(event) {
-
-        console.log('je suis dans showtruc')
         const cardId = event.target;
         cardId.closest('[data-card-id]');
         cardId.getAttribute('data-card-id');
@@ -122,7 +50,7 @@ const tagModule = {
         modalElm.classList.add('is-active');
 
         try {
-            
+
             const response = await fetch(`${tagModule.base_url}/tags`);
 
             if (!response.ok) {
@@ -135,7 +63,6 @@ const tagModule = {
             tagListElm.setAttribute('data-card-id', cardId);
             tagListElm.textContent = '';
 
-            console.log('avant for')
             for (const tag of tags) {
                 const tagElm = document.createElement('span');
 
@@ -147,9 +74,8 @@ const tagModule = {
                 tagElm.style.marginRight = '5px';
 
                 tagElm.addEventListener('click', tagModule.handleAssociateTagToCard);
-                console.log('coucou avant tag')
                 tagListElm.append(tagElm);
-                console.log('coucou apres tag')
+
             }
         } catch (e) {
             alert(e);
@@ -200,58 +126,10 @@ const tagModule = {
 
         document.querySelector(`[data-card-id="${cardId}"] .tags-list`).append(tagElm);
 
-
-        // ptete j'en aurais besoin plus tard
-        // const template = document.querySelector('#tag-template');
-        // const clone = document.importNode(template.content, true);
-
-        // const selectedTagId = clone.querySelector(`[data-tag-id]`);
-        // selectedTagId.setAttribute('data-tag-id', tag.id);
-
-        // clone.querySelector('.name').textContent = tag.name;
-
-        // clone.querySelector('.name').style.backgroundColor = tag.color;
-
-        // document.querySelector(`[data-card-id="${tag.card_has_tag.card_id}"]`).append(clone);
     },
 
 
-    // deleteCard: async (event) => {
 
-    //     const cardToDelete = event.target.closest('.modal').querySelector('input').value;
-
-    //     try {
-    //         const response = await fetch(cardModule.base_url + `/${cardToDelete}`, {
-    //             method: 'DELETE',
-    //         });
-    //         if (!response.ok) {
-    //             throw new Error(response.status);
-    //         }
-    //         cardModule.deleteCardInDOM(cardToDelete);
-    //     } catch (error) {
-    //         alert(error);
-    //     }
-    // },
-
-
-    // deleteCardInDOM: async (id) => {
-
-    //     const cardToDelete = document.querySelector(`[data-card-id="${id}"]`);
-    //     cardToDelete.remove();
-
-    //     document.querySelector('#deleteCard').classList.remove('is-active');
-    // },
-
-    // deleteModal(event) {
-
-    //     document.querySelector('#deleteCard').classList.add('is-active');
-
-    //     const inputValue = event.target.closest('.box').getAttribute('data-card-id');
-    //     const cardInput = document.querySelector('#deleteCard');
-
-    //     cardInput.querySelector('#deleteCardInput').value = `${inputValue}`;
-    //     cardInput.querySelector('.danger').addEventListener('click', cardModule.deleteCard);
-    // }
 
 };
 

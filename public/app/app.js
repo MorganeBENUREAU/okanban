@@ -1,13 +1,12 @@
-const cardModule = require ('./card');
-const listModule = require ('./list');
-const tagModule = require ('./tag');
+const cardModule = require('./card');
+const listModule = require('./list');
+const tagModule = require('./tag');
 
 
 // on objet qui contient des fonctions
 const app = {
 
   base_url: "http://18.204.218.43:3000",
-
 
   // fonction d'initialisation, lancée au chargement de la page
   init: function () {
@@ -39,30 +38,31 @@ const app = {
     // console.log(cardModal);
     for (buttonbis of cardModal) {
       buttonbis.addEventListener('click', cardModule.showAddCardModal);
-    }; 
+    };
 
     const createCard = document.querySelector('#formCard');
     createCard.addEventListener('submit', app.handleAddCardForm);
 
-    document.getElementById('buttonDeleteAllList').addEventListener('click',listModule.deleteAllModal);
+    document.getElementById('buttonDeleteAllList').addEventListener('click', listModule.deleteAllModal);
 
     document.getElementById('addTagButton').addEventListener('click', tagModule.showManageTagsModal);
 
-    document.querySelector('#formTag').addEventListener('submit', tagModule.handleAddTagForm);
+    const createTag = document.querySelector('#formTag');
+    createTag.addEventListener('submit', app.handleAddTagForm);
 
   },
 
 
   handleAddCardForm: (event) => {
 
-     // J'empêche le comportement par défaut du formulaire (rechargement de la page)
-     event.preventDefault();
+    // J'empêche le comportement par défaut du formulaire (rechargement de la page)
+    event.preventDefault();
 
-     // on appel la méthode qui est dans listModule qui va gérer l'ajout des données
-     cardModule.handleAddCardForm(event);
- 
-     // Une fois la liste ajouter dans le DOM, je cache mes modales
-     app.hideModals();
+    // on appel la méthode qui est dans listModule qui va gérer l'ajout des données
+    cardModule.handleAddCardForm(event);
+
+    // Une fois la liste ajouter dans le DOM, je cache mes modales
+    app.hideModals();
 
   },
 
@@ -82,20 +82,23 @@ const app = {
 
   handleAddTagForm: (event) => {
 
+    // J'empêche le comportement par défaut du formulaire (rechargement de la page)
     event.preventDefault();
 
+    // on appel la méthode qui est dans cardModule qui va gérer l'ajout des données
     tagModule.handleAddTagForm(event);
 
+    // Une fois la liste ajouter dans le DOM, je cache mes modales
     app.hideModals();
+  },
 
- },
 
   handleEditListForm: (selectedId, event) => {
 
     event.preventDefault();
 
 
-    selectedId.querySelector('form').classList.add('is-hidden');  
+    selectedId.querySelector('form').classList.add('is-hidden');
 
     selectedId.querySelector('h2').classList.remove('is-hidden');
 
@@ -109,7 +112,7 @@ const app = {
     event.preventDefault();
 
 
-    selectedId.querySelector('form').classList.add('is-hidden');  
+    selectedId.querySelector('form').classList.add('is-hidden');
 
     selectedId.querySelector('.title-card').classList.remove('is-hidden');
 
@@ -118,22 +121,7 @@ const app = {
 
   },
 
-  handleEditTagForm: (selectedId, event) => {
 
-    event.preventDefault();
-
-
-    selectedId.querySelector('form').classList.add('is-hidden');  
-
-    selectedId.querySelector('h2').classList.remove('is-hidden');
-
-
-    tagModule.handleEditTagForm(selectedId, event);
-
-  },
-
-
-  
   hideModals: () => {
 
     const closeModal = document.querySelectorAll('.modal');
@@ -141,13 +129,13 @@ const app = {
     for (modal of closeModal) {
       modal.classList.remove('is-active');
     };
-    
+
   },
 
 };
 
 
 // on accroche un écouteur d'évènement sur le document : quand le chargement est terminé, on lance app.init
-document.addEventListener('DOMContentLoaded', app.init );
+document.addEventListener('DOMContentLoaded', app.init);
 
 module.exports = app;

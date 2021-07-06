@@ -24,6 +24,7 @@ const bodyParser = multer();
 // on utlise .none() pour dire qu'on attends pas de fichier, uniquement des inputs "classiques" !
 app.use( bodyParser.none() );
 
+
 app.use(express.urlencoded({
   extended: true
 }));
@@ -31,7 +32,7 @@ app.use(express.urlencoded({
 app.use(express.static('public'));
 
 
-// Pour prévenir des failles XSS, on met en place un sanitizer qui nous permettra d'empêcher à l'utilisateur de rentré du HTML
+// Pour prévenir des failles XSS, on met en place un sanitizer qui nous permettra d'empêcher à l'utilisateur de rentrer du HTML
 app.use((req, res, next) => {
   // Pour chaque champ de notre body (qui contient les données à sauvegarder), on va sanitizer chacun des champs
   // <img src="notFound.png" onerror="alert('BIM')" /> => &lt;img src=&#34;notFound.png&#34; onerror=&#34;alert('BIM')&#34; /&gt;

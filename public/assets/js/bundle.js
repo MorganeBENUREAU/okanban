@@ -1,14 +1,13 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-const cardModule = require ('./card');
-const listModule = require ('./list');
-const tagModule = require ('./tag');
+const cardModule = require('./card');
+const listModule = require('./list');
+const tagModule = require('./tag');
 
 
 // on objet qui contient des fonctions
 const app = {
 
   base_url: "http://18.204.218.43:3000",
-
 
   // fonction d'initialisation, lancée au chargement de la page
   init: function () {
@@ -40,30 +39,31 @@ const app = {
     // console.log(cardModal);
     for (buttonbis of cardModal) {
       buttonbis.addEventListener('click', cardModule.showAddCardModal);
-    }; 
+    };
 
     const createCard = document.querySelector('#formCard');
     createCard.addEventListener('submit', app.handleAddCardForm);
 
-    document.getElementById('buttonDeleteAllList').addEventListener('click',listModule.deleteAllModal);
+    document.getElementById('buttonDeleteAllList').addEventListener('click', listModule.deleteAllModal);
 
     document.getElementById('addTagButton').addEventListener('click', tagModule.showManageTagsModal);
 
-    document.querySelector('#formTag').addEventListener('submit', tagModule.handleAddTagForm);
+    const createTag = document.querySelector('#formTag');
+    createTag.addEventListener('submit', app.handleAddTagForm);
 
   },
 
 
   handleAddCardForm: (event) => {
 
-     // J'empêche le comportement par défaut du formulaire (rechargement de la page)
-     event.preventDefault();
+    // J'empêche le comportement par défaut du formulaire (rechargement de la page)
+    event.preventDefault();
 
-     // on appel la méthode qui est dans listModule qui va gérer l'ajout des données
-     cardModule.handleAddCardForm(event);
- 
-     // Une fois la liste ajouter dans le DOM, je cache mes modales
-     app.hideModals();
+    // on appel la méthode qui est dans listModule qui va gérer l'ajout des données
+    cardModule.handleAddCardForm(event);
+
+    // Une fois la liste ajouter dans le DOM, je cache mes modales
+    app.hideModals();
 
   },
 
@@ -83,20 +83,23 @@ const app = {
 
   handleAddTagForm: (event) => {
 
+    // J'empêche le comportement par défaut du formulaire (rechargement de la page)
     event.preventDefault();
 
+    // on appel la méthode qui est dans cardModule qui va gérer l'ajout des données
     tagModule.handleAddTagForm(event);
 
+    // Une fois la liste ajouter dans le DOM, je cache mes modales
     app.hideModals();
+  },
 
- },
 
   handleEditListForm: (selectedId, event) => {
 
     event.preventDefault();
 
 
-    selectedId.querySelector('form').classList.add('is-hidden');  
+    selectedId.querySelector('form').classList.add('is-hidden');
 
     selectedId.querySelector('h2').classList.remove('is-hidden');
 
@@ -110,7 +113,7 @@ const app = {
     event.preventDefault();
 
 
-    selectedId.querySelector('form').classList.add('is-hidden');  
+    selectedId.querySelector('form').classList.add('is-hidden');
 
     selectedId.querySelector('.title-card').classList.remove('is-hidden');
 
@@ -119,22 +122,7 @@ const app = {
 
   },
 
-  handleEditTagForm: (selectedId, event) => {
 
-    event.preventDefault();
-
-
-    selectedId.querySelector('form').classList.add('is-hidden');  
-
-    selectedId.querySelector('h2').classList.remove('is-hidden');
-
-
-    tagModule.handleEditTagForm(selectedId, event);
-
-  },
-
-
-  
   hideModals: () => {
 
     const closeModal = document.querySelectorAll('.modal');
@@ -142,14 +130,14 @@ const app = {
     for (modal of closeModal) {
       modal.classList.remove('is-active');
     };
-    
+
   },
 
 };
 
 
 // on accroche un écouteur d'évènement sur le document : quand le chargement est terminé, on lance app.init
-document.addEventListener('DOMContentLoaded', app.init );
+document.addEventListener('DOMContentLoaded', app.init);
 
 module.exports = app;
 },{"./card":2,"./list":3,"./tag":4}],2:[function(require,module,exports){
@@ -578,8 +566,6 @@ const listModule = {
 
 module.exports = listModule;
 },{"./app":1,"./card":2,"./tag":4}],4:[function(require,module,exports){
-
-
 const tagModule = {
 
     base_url: null,
@@ -589,8 +575,9 @@ const tagModule = {
     },
 
     showManageTagsModal() {
-        
+
         document.getElementById('addTagModal').classList.add('is-active');
+
     },
 
     handleAddTagForm: async (event) => {
@@ -619,80 +606,9 @@ const tagModule = {
 
     },
 
-    // showAddTagModal: (event) => {
 
-    //     const divModal = document.getElementById('addTagModal');
-    //     divModal.classList.add('is-active');
+    showAssociateCardTagModal: async (event) => {
 
-    //     divModal.querySelector('.is-success').addEventListener('click', tagModule.showFormAddTag)
-    // },
-
-
-
-    // showFormAddTag: (event) => {
-
-    //     const selectedCard = event.target.closest('.box');
-
-    //     const selectTag = event.target.closest('.tag');
-
-    //     const showForm = selectTag.querySelector('form');
-    //     showForm.classList.remove('is-hidden');
-
-    //     selectTag.querySelector('.title-tag').classList.add('is-hidden');
-
-    //     const inputHidden = showForm.querySelector('input[type="hidden"]');
-    //     inputHidden.value = selectedCard.dataset.cardId;
-    //     // console.log(selectedList.dataset.listId);
-    //     // console.log(showForm);
-
-    //     showForm.addEventListener('submit', (event) => {
-    //         app.handleEditTagForm(selectTag, event)
-    //     })
-
-    //     showForm.querySelector('.close').addEventListener('click', () => {
-    //         showForm.classList.add('is-hidden');
-    //         selectTag.querySelector('.title-tag').classList.remove('is-hidden');
-    //     })
-    // },
-
-    // handleEditTagForm: async (selectedTag, event) => {
-
-    //     const formData = new FormData(event.target);
-    //     // console.log(Object.fromEntries.formData);
-    //     const id = selectedTag.dataset.tagId;
-    //     // console.log(id);
-
-    //     try {
-
-    //         const response = await fetch(tagModule.base_url + `/${id}`, {
-    //             method: 'PATCH',
-    //             body: formData
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error(response.status);
-    //         }
-
-    //         const tag = await response.json();
-
-    //         // selectedList.querySelector(`[data-list-id = "${id}"]`);
-    //         // console.log(selectedList);
-
-    //         selectedTag.querySelector('.title-tag').textContent = tag.title;
-
-    //         selectedTag.style.backgroundColor = tag.color;
-
-
-
-    //     } catch (error) {
-    //         alert(error);
-    //     };
-
-    // },
-
-    async showAssociateCardTagModal(event) {
-
-        console.log('je suis dans showtruc')
         const cardId = event.target;
         cardId.closest('[data-card-id]');
         cardId.getAttribute('data-card-id');
@@ -702,7 +618,7 @@ const tagModule = {
         modalElm.classList.add('is-active');
 
         try {
-            
+
             const response = await fetch(`${tagModule.base_url}/tags`);
 
             if (!response.ok) {
@@ -715,7 +631,6 @@ const tagModule = {
             tagListElm.setAttribute('data-card-id', cardId);
             tagListElm.textContent = '';
 
-            console.log('avant for')
             for (const tag of tags) {
                 const tagElm = document.createElement('span');
 
@@ -727,9 +642,8 @@ const tagModule = {
                 tagElm.style.marginRight = '5px';
 
                 tagElm.addEventListener('click', tagModule.handleAssociateTagToCard);
-                console.log('coucou avant tag')
                 tagListElm.append(tagElm);
-                console.log('coucou apres tag')
+
             }
         } catch (e) {
             alert(e);
@@ -780,61 +694,12 @@ const tagModule = {
 
         document.querySelector(`[data-card-id="${cardId}"] .tags-list`).append(tagElm);
 
-
-        // ptete j'en aurais besoin plus tard
-        // const template = document.querySelector('#tag-template');
-        // const clone = document.importNode(template.content, true);
-
-        // const selectedTagId = clone.querySelector(`[data-tag-id]`);
-        // selectedTagId.setAttribute('data-tag-id', tag.id);
-
-        // clone.querySelector('.name').textContent = tag.name;
-
-        // clone.querySelector('.name').style.backgroundColor = tag.color;
-
-        // document.querySelector(`[data-card-id="${tag.card_has_tag.card_id}"]`).append(clone);
     },
 
 
-    // deleteCard: async (event) => {
 
-    //     const cardToDelete = event.target.closest('.modal').querySelector('input').value;
-
-    //     try {
-    //         const response = await fetch(cardModule.base_url + `/${cardToDelete}`, {
-    //             method: 'DELETE',
-    //         });
-    //         if (!response.ok) {
-    //             throw new Error(response.status);
-    //         }
-    //         cardModule.deleteCardInDOM(cardToDelete);
-    //     } catch (error) {
-    //         alert(error);
-    //     }
-    // },
-
-
-    // deleteCardInDOM: async (id) => {
-
-    //     const cardToDelete = document.querySelector(`[data-card-id="${id}"]`);
-    //     cardToDelete.remove();
-
-    //     document.querySelector('#deleteCard').classList.remove('is-active');
-    // },
-
-    // deleteModal(event) {
-
-    //     document.querySelector('#deleteCard').classList.add('is-active');
-
-    //     const inputValue = event.target.closest('.box').getAttribute('data-card-id');
-    //     const cardInput = document.querySelector('#deleteCard');
-
-    //     cardInput.querySelector('#deleteCardInput').value = `${inputValue}`;
-    //     cardInput.querySelector('.danger').addEventListener('click', cardModule.deleteCard);
-    // }
 
 };
 
 module.exports = tagModule;
-
 },{}]},{},[1]);
