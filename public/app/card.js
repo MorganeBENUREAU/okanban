@@ -1,4 +1,4 @@
-const tagModule = require ('./tag');
+// const tagModule = require ('./tag');
 
 
 
@@ -177,4 +177,4 @@ const cardModule = {
 
 };
 
-module.exports = cardModule;
+// module.exports = cardModule;

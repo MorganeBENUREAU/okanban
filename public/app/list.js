@@ -1,6 +1,6 @@
-const app = require ('./app');
-const cardModule = require ('./card');
-const tagModule = require ('./tag');
+// const app = require ('./app');
+// const cardModule = require ('./card');
+// const tagModule = require ('./tag');
 // const Sortable = require ('sortablejs');
 
 
@@ -239,4 +239,4 @@ const listModule = {
 
 };
 
-module.exports = listModule;
+// module.exports = listModule;
