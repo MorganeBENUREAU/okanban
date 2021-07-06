@@ -50,6 +50,7 @@ const app = {
 
     const createTag = document.querySelector('#formTag');
     createTag.addEventListener('submit', app.handleAddTagForm);
+    console.log(createTag);
 
   },
 
