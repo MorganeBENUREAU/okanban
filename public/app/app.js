@@ -6,7 +6,7 @@
 // on objet qui contient des fonctions
 const app = {
 
-  base_url: "http://localhost:3000",
+  base_url: "http://18.204.218.43:3000",
 
   // fonction d'initialisation, lancée au chargement de la page
   init: function () {
